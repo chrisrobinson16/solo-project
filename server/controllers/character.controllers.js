@@ -1,0 +1,49 @@
+const Character = require('../models/character.model')
+
+module.exports = {
+    createCharacter:(req,res)=>{
+        Character.create(req.body)
+        .then((result)=>{
+            res.json(result)
+        }).catch((err)=>{
+            console.log(err)
+            res.status(400).json(err)
+        })
+    },
+    updateCharacter:(req,res)=>{
+        Character.updateOne({_id:req.params.id},req.body,{runValidators:true})
+        .then((result)=>{
+            res.json(result)
+        }).catch((err)=>{
+            console.log(err)
+            res.status(400).json(err)
+        })
+    },
+    deleteCharacter:(req,res)=>{
+        Character.deleteOne({_id:req.params.id})
+        .then((result)=>{
+            res.json(result)
+        }).catch((err)=>{
+            console.log(err)
+            res.status(400).json(err)
+        })
+    },
+    getAllCharacters:(req,res)=>{
+        Character.find()
+        .then((result)=>{
+            res.json(result)
+        }).catch((err)=>{
+            console.log(err)
+            res.status(400).json(err)
+        })
+    },
+    getOneCharacter:(req,res)=>{
+        Character.findById(req.params.id)
+        .then((result)=>{
+            res.json(result)
+        }).catch((err)=>{
+            console.log(err)
+            res.status(400).json(err)
+        })
+    },
+}
